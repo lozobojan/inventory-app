@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
+use App\Models\Department;
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,7 +33,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $content_header = "Add New Employee";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Employees list', 'link' => '/users' ],
+            [ 'name' => 'New Employee', 'link' => '/users/create' ],
+        ];
+        return view('users.create', compact(['departments', 'content_header', 'breadcrumbs']));
     }
 
     /**
@@ -39,9 +49,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        User::query()->create($request->validated());
+        return redirect(route('users.index'));
     }
 
     /**
