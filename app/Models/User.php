@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getDepartmentIdAttribute(){
+        return Position::query()->find($this->position_id)->department_id;
+    }
+
+    public function getDepartmentNameAttribute(){
+        return Department::query()->find($this->department_id)->name;
+    }
+
+    public function position(){
+        return $this->belongsTo(Position::class);
+    }
 }

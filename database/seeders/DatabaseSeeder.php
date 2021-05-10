@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         DepartmentSeeder::run();
         PositionSeeder::run();
         UserSeeder::run();
+        EquipmentCategorySeeder::run();
     }
 }

@@ -63,7 +63,13 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $content_header = "Employee details";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Employees list', 'link' => '/users' ],
+            [ 'name' => 'Employee details', 'link' => '/users/'.$user->id ],
+        ];
+        return view('users.show', compact(['content_header', 'breadcrumbs', 'user']));
     }
 
     /**
@@ -74,7 +80,15 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $departments = Department::all();
+        $content_header = "Edit Employee details";
+        $user->append('department_id');
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Employees list', 'link' => '/users' ],
+            [ 'name' => 'Edit Employee details', 'link' => '/users/'.$user->id.'/edit' ],
+        ];
+        return view('users.edit', compact(['departments', 'content_header', 'breadcrumbs', 'user']));
     }
 
     /**
@@ -86,7 +100,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->except(['password']));
+        return redirect('/users');
     }
 
     /**
@@ -97,6 +112,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if($user->id != auth()->id()){
+            $user->delete();
+        }
+        return redirect('/users');
     }
 }

@@ -37,7 +37,9 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td>
+                                    <a href="/users/{{ $user->id }}">{{ $user->name }}</a>
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <a href="/users/{{ $user->id }}/edit" class="btn btn-primary btn-sm btn-flat">
@@ -46,13 +48,13 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="/users/{{ $user->id }}" method="POST">
+                                    <a class="btn btn-danger btn-sm btn-flat @if($user->id == auth()->id()) disabled @endif " onclick="confirmUserDelete({{ $user->id }})">
+                                        <i class="fa fa-times"></i>
+                                        DELETE
+                                    </a>
+                                    <form action="/users/{{ $user->id }}" method="POST" id="delete_form_{{ $user->id }}">
                                         @method('DELETE')
                                         @csrf
-                                        <button class="btn btn-danger btn-sm btn-flat">
-                                            <i class="fa fa-times"></i>
-                                            DELETE
-                                        </button>
                                     </form>
                                 </td>
                             </tr>
@@ -67,4 +69,8 @@
         </div>
     </div>
 
+@endsection
+
+@section('additional_scripts')
+    <script src="{{ asset('/js/users/index.js') }}"></script>
 @endsection
