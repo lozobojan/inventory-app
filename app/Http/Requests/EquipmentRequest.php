@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
 
-class UserRequest extends FormRequest
+class EquipmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,28 +32,28 @@ class UserRequest extends FormRequest
     public function storeRules(){
         return [
             'name' => 'required|min:3|max:255',
-            'email' => 'required|email',
-            'password' => 'required|min:8|max:255',
-            'position_id' => 'required|integer',
-            'department_id' => 'nullable',
+            'equipment_category_id' => 'required|integer',
+            'serial_number' => 'required|min:3|max:25',
+            'available_quantity' => 'required|integer|min:0',
+            'description' => 'nullable'
         ];
     }
 
+    // za sad ista pravila kao i za dodavanje
     public function updateRules(){
         return [
             'name' => 'required|min:3|max:255',
-            'email' => 'required|email',
-            'password' => 'nullable',
-            'position_id' => 'required|integer',
-            'department_id' => 'nullable',
+            'equipment_category_id' => 'required|integer',
+            'serial_number' => 'required|min:3|max:25',
+            'available_quantity' => 'required|integer|min:0',
+            'description' => 'nullable'
         ];
     }
 
     public function validated()
     {
-        $validated = $this->validate($this->rules());
-        if($validated['password'])
-            $validated['password'] = Hash::make($validated['password']);
-        return $validated;
+        /* dodatna obrada zahtjeva ide ovdje */
+        /* npr. upload slike ili hash-iranje password-a */
+        return $this->validate($this->rules());
     }
 }
