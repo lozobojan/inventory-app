@@ -82,6 +82,15 @@
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="/documents" class="nav-link {{ request()->is('documents*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-paperclip"></i>
+                        <p>
+                            Documents
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

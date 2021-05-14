@@ -20,4 +20,7 @@ class Equipment extends Model
         else return substr($this->description, 0, 25).'...';
     }
 
+    public function getFullNameAttribute(){
+        return $this->category->name." - ".$this->name;
+    }
 }

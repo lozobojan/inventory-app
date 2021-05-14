@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\DocumentItemController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -26,3 +28,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/users', UserController::class);
 Route::get('/positions-by-department/{department}', [\App\Http\Controllers\DepartmentController::class, 'positions']);
 Route::resource('/equipment', EquipmentController::class);
+Route::resource('/documents', DocumentController::class);
+Route::post('/document-items/{document}', [DocumentItemController::class, 'store']);
