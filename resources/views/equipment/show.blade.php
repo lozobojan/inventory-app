@@ -43,6 +43,25 @@
                                 </tr>
                             </table>
                         </div>
+
+                        <div class="col-7">
+                            <table class="table table-hover table-sm table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Serial No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($serial_numbers as $key => $sn)
+                                        <tr style="@if($sn->is_used) text-decoration: line-through; @endif" >
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $sn->serial_number }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div><!-- /.card-body -->

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Document;
-use App\Models\DocumentItem;
+use App\Models\SerialNumber;
 use Illuminate\Http\Request;
 
-class DocumentItemController extends Controller
+class SerialNumberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,20 +33,18 @@ class DocumentItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Document $document)
+    public function store(Request $request)
     {
-        $new_item = $document->items()->create($request->only(['equipment_id', 'serial_number']));
-        $new_item->equipment()->update(['available_quantity' => $new_item->equipment->available_quantity - 1]);
-        return redirect(route('documents.edit', [$document->id]));
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DocumentItem  $documentItem
+     * @param  \App\Models\SerialNumber  $serialNumber
      * @return \Illuminate\Http\Response
      */
-    public function show(DocumentItem $documentItem)
+    public function show(SerialNumber $serialNumber)
     {
         //
     }
@@ -55,10 +52,10 @@ class DocumentItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DocumentItem  $documentItem
+     * @param  \App\Models\SerialNumber  $serialNumber
      * @return \Illuminate\Http\Response
      */
-    public function edit(DocumentItem $documentItem)
+    public function edit(SerialNumber $serialNumber)
     {
         //
     }
@@ -67,23 +64,21 @@ class DocumentItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DocumentItem  $documentItem
+     * @param  \App\Models\SerialNumber  $serialNumber
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DocumentItem $documentItem)
+    public function update(Request $request, SerialNumber $serialNumber)
     {
-        $documentItem->update([ 'return_date' => date('Y-m-d H:i:s') ]);
-        $documentItem->equipment()->update(['available_quantity' => $documentItem->equipment->available_quantity + 1]);
-        return redirect()->back();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DocumentItem  $documentItem
+     * @param  \App\Models\SerialNumber  $serialNumber
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DocumentItem $documentItem)
+    public function destroy(SerialNumber $serialNumber)
     {
         //
     }

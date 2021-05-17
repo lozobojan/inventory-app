@@ -15,6 +15,10 @@ class Equipment extends Model
         return $this->belongsTo(EquipmentCategory::class, 'equipment_category_id');
     }
 
+    public function serial_numbers(){
+        return $this->hasMany(SerialNumber::class);
+    }
+
     public function getShortDescriptionAttribute(){
         if(strlen($this->description) < 25) return $this->description;
         else return substr($this->description, 0, 25).'...';
@@ -22,5 +26,9 @@ class Equipment extends Model
 
     public function getFullNameAttribute(){
         return $this->category->name." - ".$this->name;
+    }
+
+    public function scopeAvailable($query){
+        return $query->where('available_quantity', '>', 0);
     }
 }

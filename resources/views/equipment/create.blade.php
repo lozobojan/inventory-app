@@ -21,7 +21,7 @@
                     <form action="/equipment" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <label for="catogory_select">Equipment category:</label>
                                 <select name="equipment_category_id" id="catogory_select" class="form-control @error('equipment_category_id') is-invalid @endif">
                                     <option value="">- select a category -</option>
@@ -36,7 +36,7 @@
                                 @enderror
 
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <label for="position_select">Name:</label>
                                 <input type="text" name="name" id="name_input" class="form-control @error('name') is-invalid @endif" placeholder="Enter a name" />
                                 @error('name')
@@ -45,16 +45,16 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="col-3">
-                                <label for="serial_number_input">Serial number:</label>
-                                <input type="text" name="serial_number" class="form-control  @error('serial_number') is-invalid @endif " placeholder="Enter serial number" id="serial_number_input">
-                                @error('serial_number')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="col-3">
+{{--                            <div class="col-3">--}}
+{{--                                <label for="serial_number_input">Serial number:</label>--}}
+{{--                                <input type="text" name="serial_number" class="form-control  @error('serial_number') is-invalid @endif " placeholder="Enter serial number" id="serial_number_input">--}}
+{{--                                @error('serial_number')--}}
+{{--                                <div class="invalid-feedback">--}}
+{{--                                    {{ $message }}--}}
+{{--                                </div>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+                            <div class="col-4">
                                 <label for="available_quantity_input">Available quantity:</label>
                                 <input type="number" step="1" min="0" name="available_quantity" class="form-control  @error('available_quantity') is-invalid @endif " placeholder="Enter quantity" id="available_quantity_input">
                                 @error('available_quantity')

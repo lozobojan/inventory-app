@@ -10,7 +10,7 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <label for="">Equipment:</label>
                             <select class="form-control" name="equipment_id" id="equipment_select">
                                 @foreach($equipment as $e)
@@ -18,6 +18,11 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-6">
+                            <label for="">Serial number:</label>
+                            <input type="text" class="form-control" name="serial_number" id="serial_number_input">
+                        </div>
+
                     </div>
 
                 </div>

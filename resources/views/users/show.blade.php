@@ -43,6 +43,32 @@
                                 </tr>
                             </table>
                         </div>
+
+                        <div class="col-7">
+                            <table class="table table-sm table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Equipment</th>
+                                        <th>Serial No.</th>
+                                        <th>Date</th>
+                                        <th>Administrator</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($items as $key => $item)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $item->equipment->name }}</td>
+                                            <td>{{ $item->serial_number }}</td>
+                                            <td>{{ $item->document->date_formated }}</td>
+                                            <td>{{ $item->document->admin->name }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div><!-- /.card-body -->

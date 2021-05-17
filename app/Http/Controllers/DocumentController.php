@@ -65,7 +65,16 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-
+        $users = User::all();
+        $equipment = Equipment::query()->available()->get();
+        $items = $document->items;
+        $content_header = "Document details";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Document list', 'link' => '/documents' ],
+            [ 'name' => 'Document details', 'link' => '/users/'.$document->id ],
+        ];
+        return view('documents.show', compact(['content_header', 'breadcrumbs', 'document', 'users', 'items', 'equipment']));
     }
 
     /**
@@ -77,7 +86,7 @@ class DocumentController extends Controller
     public function edit(Document $document)
     {
         $users = User::all();
-        $equipment = Equipment::all();
+        $equipment = Equipment::query()->available()->get();
         $items = $document->items;
         $content_header = "Document details";
         $breadcrumbs = [

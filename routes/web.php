@@ -30,3 +30,4 @@ Route::get('/positions-by-department/{department}', [\App\Http\Controllers\Depar
 Route::resource('/equipment', EquipmentController::class);
 Route::resource('/documents', DocumentController::class);
 Route::post('/document-items/{document}', [DocumentItemController::class, 'store']);
+Route::put('/document-item/return/{document_item}', [DocumentItemController::class, 'update']);

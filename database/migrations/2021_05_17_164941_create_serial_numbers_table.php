@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEquipmentTable extends Migration
+class CreateSerialNumbersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateEquipmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('equipment', function (Blueprint $table) {
+        Schema::create('serial_numbers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('equipment_category_id')->constrained('equipment_categories');
-            $table->string('name');
-            $table->integer('available_quantity')->default(1);
-            $table->string('description')->nullable();
+            $table->string('serial_number');
+            $table->foreignId('equipment_id')->constrained('equipment');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateEquipmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipment');
+        Schema::dropIfExists('serial_numbers');
     }
 }

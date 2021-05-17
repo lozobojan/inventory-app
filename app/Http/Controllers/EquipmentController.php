@@ -63,12 +63,13 @@ class EquipmentController extends Controller
     public function show(Equipment $equipment)
     {
         $content_header = "Equipment details";
+        $serial_numbers = $equipment->serial_numbers;
         $breadcrumbs = [
             [ 'name' => 'Home', 'link' => '/' ],
             [ 'name' => 'Equipment list', 'link' => '/equipment' ],
             [ 'name' => 'Equipment details', 'link' => '/equipment/'.$equipment->id ],
         ];
-        return view('equipment.show', compact(['content_header', 'breadcrumbs', 'equipment']));
+        return view('equipment.show', compact(['content_header', 'breadcrumbs', 'equipment', 'serial_numbers']));
     }
 
     /**

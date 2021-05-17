@@ -69,7 +69,8 @@ class UserController extends Controller
             [ 'name' => 'Employees list', 'link' => '/users' ],
             [ 'name' => 'Employee details', 'link' => '/users/'.$user->id ],
         ];
-        return view('users.show', compact(['content_header', 'breadcrumbs', 'user']));
+        $items = $user->items;
+        return view('users.show', compact(['content_header', 'breadcrumbs', 'user', 'items']));
     }
 
     /**

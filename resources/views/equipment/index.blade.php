@@ -35,7 +35,6 @@
                             <th>ID</th>
                             <th>Category</th>
                             <th>Name</th>
-                            <th>Serial No.</th>
                             <th>Qty. available</th>
                             <th>Description</th>
                             <th>Edit</th>
@@ -50,7 +49,6 @@
                                     {{ $e->category->name }}
                                 </td>
                                 <td>{{ $e->name }}</td>
-                                <td>{{ $e->serial_number }}</td>
                                 <td>{{ $e->available_quantity }}</td>
                                 <td>{{ $e->short_description }}</td>
                                 <td>

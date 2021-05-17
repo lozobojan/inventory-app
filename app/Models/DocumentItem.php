@@ -10,7 +10,7 @@ class DocumentItem extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $dates = ['created_at', 'updated_at', 'returned_date'];
+    protected $dates = ['created_at', 'updated_at', 'return_date'];
 
     public function document(){
         return $this->belongsTo(Document::class);
@@ -21,12 +21,12 @@ class DocumentItem extends Model
     }
 
     public function getReturnedAttribute(){
-        return $this->returned_date != null;
+        return $this->return_date != null;
     }
 
     public function getReturnedDateFormatedAttribute(){
         if($this->returned)
-            return $this->returned_date->format('d.m.Y');
+            return $this->return_date->format('d.m.Y');
         else
             return '/';
     }

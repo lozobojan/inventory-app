@@ -53,4 +53,12 @@ class User extends Authenticatable
     public function position(){
         return $this->belongsTo(Position::class);
     }
+
+    public function documents(){
+        return $this->hasMany(Document::class);
+    }
+
+    public function items(){
+        return $this->hasManyThrough(DocumentItem::class, Document::class);
+    }
 }
