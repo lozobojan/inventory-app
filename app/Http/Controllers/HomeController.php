@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipment;
+use App\Models\EquipmentCategory;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // $equipment = Equipment::query()->available()->get();
+        $categories = EquipmentCategory::query()
+                                        ->whereHas('available_equipment')
+                                        ->with('available_equipment')
+                                        ->get();
+        $tickets = Ticket::query()->open();
+        return view('home', compact(['categories']));
     }
 }

@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
             'name' => 'Filip Filipović',
             'email' => 'filip@mail.com',
             'password' => Hash::make('12345678'),
-            'position_id' => 1
+            'position_id' => 1,
+            'role_id' => 1,
         ]);
     }
 }

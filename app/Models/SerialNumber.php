@@ -15,6 +15,7 @@ class SerialNumber extends Model
         return DocumentItem::query()
                 ->where('equipment_id', '=', $this->equipment_id)
                 ->where('serial_number', '=', $this->serial_number)
+                ->where('return_date', '=', null)
                 ->count() > 0;
     }
 

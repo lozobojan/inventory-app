@@ -10,4 +10,12 @@ class EquipmentCategory extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function equipment(){
+        return $this->hasMany(Equipment::class);
+    }
+
+    public function available_equipment(){
+        return $this->hasMany(Equipment::class)->available();
+    }
 }
