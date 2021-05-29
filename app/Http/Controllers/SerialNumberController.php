@@ -35,7 +35,11 @@ class SerialNumberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        SerialNumber::create($request->all());
+
+        return redirect(
+            'equipment/' . $request->equipment_id
+        );
     }
 
     /**

@@ -19,8 +19,8 @@ class EquipmentController extends Controller
         $equipment = Equipment::all();
         $content_header = "Equipment list";
         $breadcrumbs = [
-            [ 'name' => 'Home', 'link' => '/' ],
-            [ 'name' => 'Equipment list', 'link' => '/equipment' ],
+            ['name' => 'Home', 'link' => '/'],
+            ['name' => 'Equipment list', 'link' => '/equipment'],
         ];
         return view('equipment.index', compact(['equipment', 'content_header', 'breadcrumbs']));
     }
@@ -35,9 +35,9 @@ class EquipmentController extends Controller
         $categories = EquipmentCategory::all();
         $content_header = "Add New Equipment";
         $breadcrumbs = [
-            [ 'name' => 'Home', 'link' => '/' ],
-            [ 'name' => 'Equipment list', 'link' => '/equipment' ],
-            [ 'name' => 'New Equipment', 'link' => '/equipment/create' ],
+            ['name' => 'Home', 'link' => '/'],
+            ['name' => 'Equipment list', 'link' => '/equipment'],
+            ['name' => 'New Equipment', 'link' => '/equipment/create'],
         ];
         return view('equipment.create', compact(['categories', 'content_header', 'breadcrumbs']));
     }
@@ -65,9 +65,9 @@ class EquipmentController extends Controller
         $content_header = "Equipment details";
         $serial_numbers = $equipment->serial_numbers;
         $breadcrumbs = [
-            [ 'name' => 'Home', 'link' => '/' ],
-            [ 'name' => 'Equipment list', 'link' => '/equipment' ],
-            [ 'name' => 'Equipment details', 'link' => '/equipment/'.$equipment->id ],
+            ['name' => 'Home', 'link' => '/'],
+            ['name' => 'Equipment list', 'link' => '/equipment'],
+            ['name' => 'Equipment details', 'link' => '/equipment/' . $equipment->id],
         ];
         return view('equipment.show', compact(['content_header', 'breadcrumbs', 'equipment', 'serial_numbers']));
     }
@@ -83,9 +83,9 @@ class EquipmentController extends Controller
         $categories = EquipmentCategory::all();
         $content_header = "Edit Equipment details";
         $breadcrumbs = [
-            [ 'name' => 'Home', 'link' => '/' ],
-            [ 'name' => 'Equipment list', 'link' => '/equipment' ],
-            [ 'name' => 'Edit Equipment details', 'link' => '/equipment/'.$equipment->id.'/edit' ],
+            ['name' => 'Home', 'link' => '/'],
+            ['name' => 'Equipment list', 'link' => '/equipment'],
+            ['name' => 'Edit Equipment details', 'link' => '/equipment/' . $equipment->id . '/edit'],
         ];
         return view('equipment.edit', compact(['categories', 'content_header', 'breadcrumbs', 'equipment']));
     }
@@ -113,5 +113,10 @@ class EquipmentController extends Controller
     {
         $equipment->delete();
         return redirect('/equipment');
+    }
+
+    public function serials(Equipment $equipment)
+    {
+        return $equipment->serial_numbers;
     }
 }
