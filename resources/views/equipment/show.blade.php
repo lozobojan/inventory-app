@@ -6,14 +6,15 @@
 
 <div class="row">
     <div class="col-12">
-
+        @error('serial_number')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-laptop-code mr-1"></i>
                     Equipment details
                 </h3>
-
             </div><!-- /.card-header -->
 
             <div class="card-body table-responsive">
@@ -52,7 +53,9 @@
                                     <th class="align-middle">Serial No.</th>
                                     <th>
                                         <button type="button" class="btn btn-sm btn-flat btn-primary float-right"
-                                            data-toggle="modal" data-target="#new_serial_modal">
+                                            data-toggle="modal" data-target="#new_serial_modal" {{ $serial_numbers->reject(function($serial) {
+                                                return $serial->is_used;
+                                            })->count() >= $equipment->available_quantity ? 'disabled' : '' }}>
                                             Add serial
                                         </button>
                                     </th>
