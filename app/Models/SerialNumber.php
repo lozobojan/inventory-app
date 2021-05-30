@@ -14,7 +14,7 @@ class SerialNumber extends Model
     public function getIsUsedAttribute(){
         return DocumentItem::query()
                 ->where('equipment_id', '=', $this->equipment_id)
-                ->where('serial_number', '=', $this->serial_number)
+                ->where('serial_id', '=', $this->id)
                 ->where('return_date', '=', null)
                 ->count() > 0;
     }

@@ -28,7 +28,25 @@ class Equipment extends Model
         return $this->category->name." - ".$this->name;
     }
 
+    public function getSerialNumbersStringifyAttribute(){
+        $output = [];
+        foreach($this->serial_numbers as $serial_number){
+            if(!$serial_number->is_used)
+            $output[] = $serial_number->serial_number;
+        }
+        return implode(',',$output);
+    }
+
     public function scopeAvailable($query){
         return $query->where('available_quantity', '>', 0);
+    }
+
+    public function getAvailableSerialNumbersAttribute(){
+        $output = [];
+        foreach($this->serial_numbers as $serial_number){
+            if(!$serial_number->is_used)
+                $output[] = $serial_number;
+        }
+        return  $output;
     }
 }

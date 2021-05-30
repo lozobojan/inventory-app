@@ -52,6 +52,10 @@ class EquipmentRequest extends FormRequest
     {
         /* dodatna obrada zahtjeva ide ovdje */
         /* npr. upload slike ili hash-iranje password-a */
+
+        $this->serial_numbers = explode(',',$this->serial_numbers);
+        $this->available_quantity = count($this->serial_numbers);
+
         return $this->validate($this->rules());
     }
 }

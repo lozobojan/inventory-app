@@ -24,6 +24,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/users', UserController::class);
 Route::get('/positions-by-department/{department}', [DepartmentController::class, 'positions']);
+Route::get('/serial-numbers-by-equipment/{equipment}', [EquipmentController::class, 'serial_numbers']);
 Route::resource('/equipment', EquipmentController::class);
 Route::resource('/documents', DocumentController::class);
 Route::post('/document-items/{document}', [DocumentItemController::class, 'store']);
