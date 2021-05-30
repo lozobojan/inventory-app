@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+// use Illuminate\Support\Facades\Request;
 
 class SerialNumberRequest extends FormRequest
 {
@@ -23,9 +24,10 @@ class SerialNumberRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->equipment_id);
         return  [
             'equipment_id' => 'required|integer',
-            'serial_number' => 'required|string'
+            'serial_number' => 'required|string|unique:serial_numbers,serial_number,NULL,id,equipment_id,' . $this->equipment_id
         ];
     }
 
@@ -33,6 +35,7 @@ class SerialNumberRequest extends FormRequest
     {
         return [
             'serial_number.required' => 'Serijski broj je obavezan',
+            'serial_number.unique' => 'Taj serijski broj već postoji'
         ];
     }
 }
