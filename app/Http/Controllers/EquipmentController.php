@@ -118,10 +118,7 @@ class EquipmentController extends Controller
 
         //Ova logika vazi pod uslovom da je serijski broj jedinstven za razlicitu opremu!!!
         foreach ($request->serial_numbers as $serial_number){
-            if(SerialNumber::query()->where('equipment_id',$equipment->id)->where('serial_number',$serial_number)->count()){
-                continue;
-            }
-            else{
+            if(!SerialNumber::query()->where('equipment_id',$equipment->id)->where('serial_number',$serial_number)->count()){
                 SerialNumber::query()->create(['serial_number'=>$serial_number, 'equipment_id'=>$equipment->id]);
             }
         }
