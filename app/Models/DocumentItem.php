@@ -20,6 +20,21 @@ class DocumentItem extends Model
         return $this->belongsTo(Equipment::class);
     }
 
+    public function serialNumber(){
+        return $this->belongsTo(SerialNumber::class);
+    }
+
+    public function getSerialNoAttribute(){
+
+        $sn = $this->serialNumber;
+
+        if ($sn != null) {
+            return $sn->serial_number;
+        }
+
+        return '/';
+    }
+
     public function getReturnedAttribute(){
         return $this->return_date != null;
     }

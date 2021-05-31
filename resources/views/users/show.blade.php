@@ -61,7 +61,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->equipment->name }}</td>
-                                            <td>{{ $item->serial_number }}</td>
+                                            <td>{{ $item->serial_no }}</td>
                                             <td>{{ $item->document->date_formated }}</td>
                                             <td>{{ $item->document->admin->name }}</td>
                                         </tr>

@@ -11,16 +11,31 @@
 
                     <div class="row">
                         <div class="col-6">
-                            <label for="">Equipment:</label>
-                            <select class="form-control" name="equipment_id" id="equipment_select">
+                            <label for="equipment_select">Equipment:</label>
+                            <select name="equipment_id" id="equipment_select" class="form-control @error('equipment_id') is-invalid @endif" onchange="fillSerialNumbers()">
+                                <option value="">- select equipment -</option>
                                 @foreach($equipment as $e)
                                     <option value="{{ $e->id }}">{{ $e->full_name }}</option>
                                 @endforeach
                             </select>
+
+                            @error('equipment_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
+
                         <div class="col-6">
-                            <label for="">Serial number:</label>
-                            <input type="text" class="form-control" name="serial_number" id="serial_number_input">
+                            <label for="serial_number_select">Serial number:</label>
+                            <select name="serial_number_id" id="serial_number_select" class="form-control @error('serial_number_id') is-invalid @endif">
+                                {{-- populated by AJAX function --}}
+                            </select>
+                            @error('serial_number_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                     </div>

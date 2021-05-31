@@ -36,9 +36,9 @@ class DocumentItemController extends Controller
      */
     public function store(Request $request, Document $document)
     {
-        $new_item = $document->items()->create($request->only(['equipment_id', 'serial_number']));
+        $new_item = $document->items()->create($request->only(['equipment_id', 'serial_number_id']));
         $new_item->equipment()->update(['available_quantity' => $new_item->equipment->available_quantity - 1]);
-        return redirect(route('documents.edit', [$document->id]));
+        return redirect(route('documents.show', [$document->id]));
     }
 
     /**

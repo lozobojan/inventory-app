@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SerialNumberRequest;
+use App\Models\Equipment;
 use App\Models\SerialNumber;
 use Illuminate\Http\Request;
 
@@ -30,12 +32,18 @@ class SerialNumberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\SerialNumberRequest  $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(SerialNumberRequest $request, Equipment $equipment)
     {
-        //
+        $attributes = $request->validated();
+        $attributes['equipment_id'] = $equipment->id;
+
+        SerialNumber::create($attributes);
+
+        return redirect()->route('equipment.show', $equipment->id);
     }
 
     /**
@@ -63,23 +71,35 @@ class SerialNumberController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SerialNumber  $serialNumber
+     * @param  \App\Http\Requests\SerialNumberRequest  $request
+     * @param  \App\Models\Equipment                   $equipment
+     * @param  \App\Models\SerialNumber                $serialNumber
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SerialNumber $serialNumber)
+    public function update(SerialNumberRequest $request, Equipment $equipment, SerialNumber $serialNumber)
     {
-        //
+        $attributes = $request->validated();
+
+        $serialNumber->update($attributes);
+
+        return redirect()->route('equipment.show', $equipment->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \App\Models\Equipment     $equipment
      * @param  \App\Models\SerialNumber  $serialNumber
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SerialNumber $serialNumber)
+    public function destroy(Equipment $equipment, SerialNumber $serialNumber)
     {
-        //
+        if ( ! $serialNumber->is_used) {
+            $serialNumber->delete();
+        }
+
+        return redirect()->route('equipment.show', $equipment->id);
     }
 }

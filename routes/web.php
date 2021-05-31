@@ -4,6 +4,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DocumentItemController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\SerialNumberController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -30,4 +31,8 @@ Route::post('/document-items/{document}', [DocumentItemController::class, 'store
 Route::put('/document-item/return/{document_item}', [DocumentItemController::class, 'update']);
 Route::resource('/tickets', TicketController::class);
 
+Route::post('/equipment/{equipment}/serial-numbers', [SerialNumberController::class, 'store'])->name('serial_numbers.store');
+Route::put('/equipment/{equipment}/serial-numbers/{serial_number}', [SerialNumberController::class, 'update'])->name('serial_numbers.update');
+Route::delete('/equipment/{equipment}/serial-numbers/{serial_number}', [SerialNumberController::class, 'destroy'])->name('serial_numbers.destroy');
 
+Route::get('/serial-numbers-by-equipment/{equipment}', [EquipmentController::class, 'serial_numbers']);

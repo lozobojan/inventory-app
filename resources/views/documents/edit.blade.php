@@ -71,5 +71,5 @@
     @include('documents.new_item_modal')
 @endsection
 @section('additional_scripts')
-    <script src="{{ asset('js/documents/create.js') }}"></script>
+    <script src="{{ asset('js/documents/serial_numbers.js') }}"></script>
 @endsection

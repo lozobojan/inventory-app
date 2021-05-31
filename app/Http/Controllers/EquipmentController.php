@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EquipmentRequest;
 use App\Models\Equipment;
 use App\Models\EquipmentCategory;
+use App\Models\SerialNumber;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
@@ -113,5 +114,15 @@ class EquipmentController extends Controller
     {
         $equipment->delete();
         return redirect('/equipment');
+    }
+
+    /**
+     * @param  \App\Models\Equipment  $equipment
+     *
+     * @return mixed
+     */
+    public function serial_numbers(Equipment $equipment)
+    {
+        return $equipment->serial_numbers()->available()->get();
     }
 }

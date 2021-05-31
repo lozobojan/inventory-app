@@ -17,7 +17,7 @@ class CreateDocumentItemsTable extends Migration
             $table->id();
             $table->foreignId('document_id')->constrained('documents');
             $table->foreignId('equipment_id')->constrained('equipment');
-            $table->string('serial_number')->nullable();
+            $table->foreignId('serial_number_id')->nullable()->constrained('serial_numbers')->nullOnDelete();
             $table->timestamp('return_date')->nullable();
             $table->timestamps();
         });

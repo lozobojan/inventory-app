@@ -27,7 +27,7 @@
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $item->equipment->full_name }}</td>
-                    <td>{{ $item->serial_number }}</td>
+                    <td>{{ $item->serial_no }}</td>
                     <td>
                         @if($item->returned)
                             <i class="fa fa-check-circle"></i>
