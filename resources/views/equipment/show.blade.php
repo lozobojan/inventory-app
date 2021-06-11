@@ -4,71 +4,81 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-12">
+<div class="row">
+    <div class="col-12">
+        @error('serial_number')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-laptop-code mr-1"></i>
+                    Equipment details
+                </h3>
+            </div><!-- /.card-header -->
 
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-laptop-code mr-1"></i>
-                        Equipment details
-                    </h3>
+            <div class="card-body table-responsive">
 
-                </div><!-- /.card-header -->
-
-                <div class="card-body table-responsive">
-
-                    <div class="row">
-                        <div class="col-5 table-responsive">
-                            <table class="table table-striped table-sm">
-                                <tr>
-                                    <td>ID</td>
-                                    <td>{{ $equipment->id }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Category:</td>
-                                    <td>{{ $equipment->category->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Name:</td>
-                                    <td>{{ $equipment->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Available quantity:</td>
-                                    <td>{{ $equipment->available_quantity }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Description:</td>
-                                    <td>{{ $equipment->description }}</td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="col-7">
-                            <table class="table table-hover table-sm table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Serial No.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($serial_numbers as $key => $sn)
-                                        <tr style="@if($sn->is_used) text-decoration: line-through; @endif" >
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $sn->serial_number }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="row">
+                    <div class="col-5 table-responsive">
+                        <table class="table table-striped table-sm">
+                            <tr>
+                                <td>ID</td>
+                                <td>{{ $equipment->id }}</td>
+                            </tr>
+                            <tr>
+                                <td>Category:</td>
+                                <td>{{ $equipment->category->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Name:</td>
+                                <td>{{ $equipment->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Available quantity:</td>
+                                <td>{{ $equipment->available_quantity }}</td>
+                            </tr>
+                            <tr>
+                                <td>Description:</td>
+                                <td>{{ $equipment->description }}</td>
+                            </tr>
+                        </table>
                     </div>
 
-                </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                    <div class="col-7">
+                        <table class="table table-hover table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="align-middle">#</th>
+                                    <th class="align-middle">Serial No.</th>
+                                    <th>
+                                        <button type="button" class="btn btn-sm btn-flat btn-primary float-right"
+                                            data-toggle="modal" data-target="#new_serial_modal" {{ $serial_numbers->reject(function($serial) {
+                                                return $serial->is_used;
+                                            })->count() >= $equipment->available_quantity ? 'disabled' : '' }}>
+                                            Add serial
+                                        </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($serial_numbers as $key => $sn)
+                                <tr style="@if($sn->is_used) text-decoration: line-through; @endif">
+                                    <td>{{ $key + 1 }}</td>
+                                    <td colspan="2">{{ $sn->serial_number }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
+            </div><!-- /.card-body -->
         </div>
+        <!-- /.card -->
+
     </div>
+</div>
+@include('equipment.new_serial_modal')
 
 @endsection

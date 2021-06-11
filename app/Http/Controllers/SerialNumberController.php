@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SerialNumberRequest;
 use App\Models\SerialNumber;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,14 @@ class SerialNumberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SerialNumberRequest $request)
     {
-        //
+        $validated = $request->validated();
+        SerialNumber::create($validated);
+
+        return redirect(
+            'equipment/' . $request->equipment_id
+        );
     }
 
     /**

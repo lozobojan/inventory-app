@@ -14,13 +14,15 @@
                             <label for="">Equipment:</label>
                             <select class="form-control" name="equipment_id" id="equipment_select">
                                 @foreach($equipment as $e)
-                                    <option value="{{ $e->id }}">{{ $e->full_name }}</option>
+                                <option value="{{ $e->id }}">{{ $e->full_name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-6">
                             <label for="">Serial number:</label>
-                            <input type="text" class="form-control" name="serial_number" id="serial_number_input">
+                            <select class="form-control" name="serial_number" id="serial_number">
+                                {{-- Filled dynamically with js --}}
+                            </select>
                         </div>
 
                     </div>

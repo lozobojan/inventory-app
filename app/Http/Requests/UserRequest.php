@@ -24,13 +24,14 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        if($this->method() == "POST")
+        if ($this->method() == "POST")
             return $this->storeRules();
-        elseif($this->method() == "PUT" || $this->method() == "PATCH")
+        elseif ($this->method() == "PUT" || $this->method() == "PATCH")
             return $this->updateRules();
     }
 
-    public function storeRules(){
+    public function storeRules()
+    {
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|email',
@@ -40,7 +41,8 @@ class UserRequest extends FormRequest
         ];
     }
 
-    public function updateRules(){
+    public function updateRules()
+    {
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|email',
@@ -53,7 +55,7 @@ class UserRequest extends FormRequest
     public function validated()
     {
         $validated = $this->validate($this->rules());
-        if($validated['password'])
+        if ($validated['password'])
             $validated['password'] = Hash::make($validated['password']);
         return $validated;
     }
