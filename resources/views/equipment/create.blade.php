@@ -37,7 +37,7 @@
 
                             </div>
                             <div class="col-4">
-                                <label for="position_select">Name:</label>
+                                <label for="name_input">Name:</label>
                                 <input type="text" name="name" id="name_input" class="form-control @error('name') is-invalid @endif" placeholder="Enter a name" />
                                 @error('name')
                                     <div class="invalid-feedback">
@@ -56,7 +56,7 @@
 {{--                            </div>--}}
                             <div class="col-4">
                                 <label for="available_quantity_input">Available quantity:</label>
-                                <input type="number" step="1" min="0" name="available_quantity" class="form-control  @error('available_quantity') is-invalid @endif " placeholder="Enter quantity" id="available_quantity_input">
+                                <input type="number" step="1" min="0" readonly name="available_quantity" class="form-control  @error('available_quantity') is-invalid @endif " placeholder="0" id="available_quantity_input">
                                 @error('available_quantity')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -66,15 +66,36 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-7">
                                 <label for="description_txt">Description:</label>
                                 <textarea name="description" id="description_txt" class="form-control" placeholder="Enter equipment description" rows="4"></textarea>
                             </div>
+                            <div class="col-5">
+                                <label class="ml-3 mb-2" for="serial_numbers_select">Serial numbers:</label>
+                                <div class="d-flex flex-row ml-3">
+
+                                <select id="serial_numbers_select" size="5" class="w-100 form-control"></select>
+                                    @error('serial_number')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+
+                                    <input type="hidden" name="serial_numbers" id="serial_numbers" >
+                                    <script>var serial_numbers = @json(old('serial_numbers'))</script>
+
+                                    <div class="d-flex flex-column mx-1">
+                                        <button id="add" type="button" class="btn btn-success btn-sm btn-flat mt-1"><i class="fa fa-plus"></i></button>
+                                        <button id="remove" type="button" class="btn btn-danger btn-sm btn-flat mt-1"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="row">
                             <div class="col-4 offset-4">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat mt-4">
+                                <button id="submit" type="submit" class="btn btn-primary btn-block btn-flat mt-4">
                                     SAVE EQUIPMENT DETAILS
                                 </button>
                             </div>

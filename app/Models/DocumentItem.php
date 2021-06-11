@@ -16,6 +16,10 @@ class DocumentItem extends Model
         return $this->belongsTo(Document::class);
     }
 
+    public function serial_number(){
+        return $this->belongsTo(SerialNumber::class,'serial_id');
+    }
+
     public function equipment(){
         return $this->belongsTo(Equipment::class);
     }

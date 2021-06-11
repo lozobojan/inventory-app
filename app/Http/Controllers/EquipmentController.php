@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EquipmentRequest;
 use App\Models\Equipment;
 use App\Models\EquipmentCategory;
+use App\Models\SerialNumber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class EquipmentController extends Controller
 {
+    public function serial_numbers(Equipment $equipment){
+        return $equipment->available_serial_numbers;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +56,13 @@ class EquipmentController extends Controller
      */
     public function store(EquipmentRequest $request)
     {
-        Equipment::query()->create($request->validated());
+        /*if($request->validateSerialNumbers($request->serial_numbers) === false)
+            return redirect()->back()->withErrors(['serial_number', '"Invalid format of the serial number']);*/
+
+        $equipment = Equipment::query()->create($request->validated());
+        foreach ($request->serial_numbers as $serial_number){
+            SerialNumber::query()->create(['serial_number'=>$serial_number, 'equipment_id'=>$equipment->id]);
+        }
         return redirect(route('equipment.index'));
     }
 
@@ -64,6 +76,7 @@ class EquipmentController extends Controller
     {
         $content_header = "Equipment details";
         $serial_numbers = $equipment->serial_numbers;
+
         $breadcrumbs = [
             [ 'name' => 'Home', 'link' => '/' ],
             [ 'name' => 'Equipment list', 'link' => '/equipment' ],
@@ -99,7 +112,29 @@ class EquipmentController extends Controller
      */
     public function update(EquipmentRequest $request, Equipment $equipment)
     {
+        DB::beginTransaction();
+
         $equipment->update($request->validated());
+
+        //Ova logika vazi pod uslovom da je serijski broj jedinstven za razlicitu opremu!!!
+        foreach ($request->serial_numbers as $serial_number){
+            if(!SerialNumber::query()->where('equipment_id',$equipment->id)->where('serial_number',$serial_number)->count()){
+                SerialNumber::query()->create(['serial_number'=>$serial_number, 'equipment_id'=>$equipment->id]);
+            }
+        }
+
+        $old_equipment = SerialNumber::query()->where('equipment_id',$equipment->id)->whereNotIn('serial_number',array_values($request->serial_numbers))->get();
+
+        try{
+            foreach($old_equipment as $equipment){
+                if(!$equipment->is_used)$equipment->delete();
+            }
+        }catch (\Exception $e){
+            DB::rollback();
+        }
+
+        DB::commit();
+
         return redirect('/equipment');
     }
 
@@ -111,6 +146,7 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
+        $equipment->serial_numbers()->delete();
         $equipment->delete();
         return redirect('/equipment');
     }
